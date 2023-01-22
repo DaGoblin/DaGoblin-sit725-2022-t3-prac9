@@ -84,29 +84,29 @@ app.use("/api/projects", projectRoutes);
 // });
 
 app.get("/addTwoNumbers/:firstNumber/:secondNumber", function (req, res, next) {
-  var firstNumber = parseInt(req.params.firstNumber);
-  var secondNumber = parseInt(req.params.secondNumber);
-  var result = firstNumber + secondNumber || null;
-  if (result == null) {
-    res.json({ result: result, statusCode: 400 }).status(400);
-  } else {
-    res.json({ result: result, statusCode: 200 }).status(200);
-  }
+    var firstNumber = parseInt(req.params.firstNumber);
+    var secondNumber = parseInt(req.params.secondNumber);
+    var result = firstNumber + secondNumber || null;
+    if (result == null) {
+        res.json({ result: result, statusCode: 400 }).status(400);
+    } else {
+        res.json({ result: result, statusCode: 200 }).status(200);
+    }
 });
 
 io.on("connection", (socket) => {
-  console.log("a new user has connected");
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
-  });
-  setInterval(() => {
-    socket.emit("Random number", parseInt(Math.random() * 10));
-  }, 1000);
+    console.log("a new user has connected");
+    socket.on("disconnect", () => {
+        console.log("user disconnected");
+    });
+    setInterval(() => {
+        socket.emit("number", parseInt(Math.random() * 10));
+    }, 1000);
 });
 
 var port = process.env.port || 3000;
 
 http.listen(port, () => {
-  console.log("App listening to: " + port);
-  // createCollection("Pets");
+    console.log("App listening to: " + port);
+    // createCollection("Pets");
 });
